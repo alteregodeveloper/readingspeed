@@ -45,5 +45,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $PAGE->requires->js(new moodle_url('https://kit.fontawesome.com/8368a92b51.js'));
     $PAGE->requires->js(new moodle_url('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'));
     $PAGE->requires->js(new moodle_url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'));
+    $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/mod/readingspeed/assets/js/readingspeed.js'));
     echo $OUTPUT->footer();
 }
