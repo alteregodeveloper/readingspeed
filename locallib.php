@@ -39,3 +39,8 @@ function get_user_can_edit($roles) {
         }
     }
 }
+
+function show_addcasesbutton() {
+    $current_url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    echo '<div class="newcasses" style="text-align: right"><a class="printicon" title="Add new case" href="' . $current_url . '&action=addcase"><i class="far fa-plus-square"></i> Add new case</a></div>';
+}

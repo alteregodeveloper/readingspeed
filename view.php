@@ -27,7 +27,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $PAGE->set_context($modulecontext);
     echo $OUTPUT->header();
     if($useredit) {
-
+        if(isset($_GET['action'])) {
+            
+        }  else {
+            echo $OUTPUT->heading($readingspeed->name);
+            show_addcasesbutton();
+            echo $readingspeed->intro;
+        }
     } else {
         echo $OUTPUT->heading($readingspeed->name);
         echo $readingspeed->intro;
