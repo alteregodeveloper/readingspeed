@@ -44,3 +44,9 @@ function show_addcasesbutton() {
     $current_url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     echo '<div class="newcasses" style="text-align: right"><a class="printicon" title="Add new case" href="' . $current_url . '&action=addcase"><i class="far fa-plus-square"></i> Add new case</a></div>';
 }
+
+function show_addcase_form($activity) {
+    $complexityranges = get_complexity_ranges();
+    $categories = get_readingspeed_categories();
+    require_once('localview/addcase_form.php');
+}

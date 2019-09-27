@@ -28,7 +28,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo $OUTPUT->header();
     if($useredit) {
         if(isset($_GET['action'])) {
-            
+            echo $OUTPUT->heading('Add new case');
+            show_addcase_form($cm->id);
         }  else {
             echo $OUTPUT->heading($readingspeed->name);
             show_addcasesbutton();
