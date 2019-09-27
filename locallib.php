@@ -21,3 +21,21 @@ function get_readingspeed_categories() {
     $query = 'SELECT id, category FROM mdl_reading_categories';
     return $DB->get_records_sql_menu($query);
 }
+
+function get_user_can_edit($roles) {
+    if($roles) {
+        $role = key($roles);
+        $shortname = $roles[$role]->shortname;
+        if($shortname == 'manager' || $shortname == 'coursecreator' || $shortname == 'editingteacher') {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    } else {
+        if(is_siteadmin()) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+}
