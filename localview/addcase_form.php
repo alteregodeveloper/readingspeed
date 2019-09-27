@@ -1,7 +1,7 @@
-<form action="" method="POST" enctype="multipart/form-data" id="newCase">
+<form action="" method="POST" id="newCase">
     <input type="hidden" name="action" value="addcase">
     <div class="row">
-        <div class="col">
+        <div class="col-4">
             <div class="row">
                 <div class="col">
                     <label for="category">Category</label>
@@ -38,18 +38,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <label for="complexity">Words</label>
-                    <div class="form-row">
-                        <div class="form-group col-10">
-                            <input type="text" class="form-control" name="words" value="" disabled>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-        <div class="col">
+        <div class="col-8">
             <div class="form-group">
                 <label for="intro">Text</label>
                 <textarea class="form-control" name="intro" rows="20"></textarea>

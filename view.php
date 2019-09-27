@@ -20,7 +20,11 @@ $useredit = get_user_can_edit(get_user_roles($modulecontext, $USER->id));
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if($_POST['action'] == 'addcategory') {
         echo set_category($_POST['category']);
-    }  else if($_POST['action'] == 'addcase') {
+    } else if($_POST['action'] == 'addquestion') {
+        echo set_question($_POST['caseid'],$_POST['question']);
+    } else if($_POST['action'] == 'addanswer') {
+        echo set_answer($_POST['questionid'],$_POST['correct'],$_POST['intro']);
+    } else if($_POST['action'] == 'addcase') {
         $PAGE->set_url('/mod/readingspeed/view.php', array('id' => $cm->id));
         $PAGE->set_title(format_string($readingspeed->name));
         $PAGE->requires->css(new moodle_url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'));
@@ -32,7 +36,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $case = set_case($_POST['category'],$_POST['complexity'],$_POST['intro']);
         show_alert($case['status'],$case['message']);
         if($case['caseid'] > 0) {
-            show_addquestion_form($cm->id,$case['caseid'],$_POST['categoryname'],$_POST['complexityname'],$case['words']);
+            show_addquestion_form($cm->id,$case['caseid'],$_POST['categoryname'],$_POST['complexityname'],$case['words'],$case['resume']);
         } else {
             show_addcase_form($cm->id);
         }

@@ -64,7 +64,7 @@ function set_case($category,$complexity,$introtext) {
     $record->timemodified = $currentDate->getTimestamp();
     $caseid = $DB->insert_record('reading_cases', $record, true);
     if($caseid > 0) {
-        return array('status' => 'success', 'message' => 'The file was saved successfully. Now you can create the questions', 'caseid' => $caseid, 'words' => $words);
+        return array('status' => 'success', 'message' => 'The file was saved successfully. Now you can create the questions', 'caseid' => $caseid, 'words' => $words, 'resume' => substr($introtext,0,100));
     } else {
         return array('status' => 'danger', 'message' => 'An error occurred while trying to save the image. Try again');
     }
@@ -85,10 +85,43 @@ function set_category($category) {
     }
 }
 
-function show_addquestion_form($activity,$caseid,$categoryname,$complexityname,$words) {
-
+function show_addquestion_form($activity,$caseid,$category,$complexity,$words,$resume) {
+    require_once('localview/addquestion_form.php');
 }
 
 function show_alert($status, $message) {
     echo '<div class="alert alert-' . $status . ' alert-dismissible fade show" role="alert"><i class="fas fa-bell"></i> ' . $message . '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+}
+
+function set_question($caseid,$question) {
+    global $DB;
+    $record = new stdClass();
+    $record->caseid = $caseid;
+    $record->intro = $question;
+    $currentDate = new DateTime();
+    $record->timecreated = $currentDate->getTimestamp();
+    $record->timemodified = $currentDate->getTimestamp();
+    $questionid = $DB->insert_record('reading_questions', $record, true);
+    if($questionid > 0) {
+        echo json_encode(array('status' => 'success', 'message' => 'Question successfully added', 'questionid' => $questionid, 'question' => $question));
+    } else {
+        echo json_encode(array('status' => 'danger', 'message' => 'It was not possible to create a new question'));
+    }
+}
+
+function set_answer($questionid,$correct,$intro) {
+    global $DB;
+    $record = new stdClass();
+    $record->questionid = $questionid;
+    $record->correct = $correct;
+    $record->intro = $intro;
+    $currentDate = new DateTime();
+    $record->timecreated = $currentDate->getTimestamp();
+    $record->timemodified = $currentDate->getTimestamp();
+    $answerid = $DB->insert_record('reading_answers', $record, true);
+    if($answerid > 0) {
+        echo json_encode(array('status' => 'success', 'correct' => $correct, 'answer' => $intro));
+    } else {
+        echo json_encode(array('status' => 'warning'));
+    }
 }
