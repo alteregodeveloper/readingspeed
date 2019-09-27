@@ -20,6 +20,29 @@ $useredit = get_user_can_edit(get_user_roles($modulecontext, $USER->id));
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if($_POST['action'] == 'addcategory') {
         echo set_category($_POST['category']);
+    }  else if($_POST['action'] == 'addcase') {
+        $PAGE->set_url('/mod/readingspeed/view.php', array('id' => $cm->id));
+        $PAGE->set_title(format_string($readingspeed->name));
+        $PAGE->requires->css(new moodle_url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'));
+        $PAGE->set_heading(format_string($course->fullname));
+        $PAGE->set_context($modulecontext);
+        echo $OUTPUT->header();
+        echo $OUTPUT->heading('Add new case');
+        
+        $case = set_case($_POST['category'],$_POST['complexity'],$_POST['intro']);
+        show_alert($case['status'],$case['message']);
+        if($case['caseid'] > 0) {
+            show_addquestion_form($cm->id,$case['caseid'],$_POST['categoryname'],$_POST['complexityname'],$case['words']);
+        } else {
+            show_addcase_form($cm->id);
+        }
+        
+        $PAGE->requires->js(new moodle_url('https://code.jquery.com/jquery-3.4.1.min.js'));
+        $PAGE->requires->js(new moodle_url('https://kit.fontawesome.com/8368a92b51.js'));
+        $PAGE->requires->js(new moodle_url('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'));
+        $PAGE->requires->js(new moodle_url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'));
+        $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/mod/readingspeed/assets/js/readingspeed.js'));
+        echo $OUTPUT->footer();
     }
 } else {
     $PAGE->set_url('/mod/readingspeed/view.php', array('id' => $cm->id));

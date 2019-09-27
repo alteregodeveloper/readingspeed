@@ -60,8 +60,7 @@
         <div class="col text-right mt-5">
             <a href="<?= '//' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . '?id=' . $activity ?>"
                 class="btn btn-secondary">Exit</a>
-            <button class="btn btn-success" type="button" id="count-words">Count Words</button>
-            <button class="btn btn-primary" type="submit" id="add-case" disabled>Add new case</button>
+            <button class="btn btn-primary" type="submit" id="add-case">Add new case</button>
         </div>
     </div>
 </form>

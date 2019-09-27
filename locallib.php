@@ -51,6 +51,25 @@ function show_addcase_form($activity) {
     require_once('localview/addcase_form.php');
 }
 
+function set_case($category,$complexity,$introtext) {
+    global $DB;
+    $record = new stdClass();
+    $record->category = $category;
+    $record->complexity = $complexity;
+    $words = str_word_count($introtext,0);
+    $record->words = $words;
+    $record->intro = $introtext;
+    $currentDate = new DateTime();
+    $record->timecreated = $currentDate->getTimestamp();
+    $record->timemodified = $currentDate->getTimestamp();
+    $caseid = $DB->insert_record('reading_cases', $record, true);
+    if($caseid > 0) {
+        return array('status' => 'success', 'message' => 'The file was saved successfully. Now you can create the questions', 'caseid' => $caseid, 'words' => $words);
+    } else {
+        return array('status' => 'danger', 'message' => 'An error occurred while trying to save the image. Try again');
+    }
+}
+
 function set_category($category) {
     global $DB;
     $record = new stdClass();
@@ -64,4 +83,12 @@ function set_category($category) {
     } else {
         echo json_encode(array('status' => 'danger', 'message' => 'It was not possible to create a new category'));
     }
+}
+
+function show_addquestion_form($activity,$caseid,$categoryname,$complexityname,$words) {
+
+}
+
+function show_alert($status, $message) {
+    echo '<div class="alert alert-' . $status . ' alert-dismissible fade show" role="alert"><i class="fas fa-bell"></i> ' . $message . '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
 }
