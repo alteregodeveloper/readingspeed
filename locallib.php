@@ -50,3 +50,18 @@ function show_addcase_form($activity) {
     $categories = get_readingspeed_categories();
     require_once('localview/addcase_form.php');
 }
+
+function set_category($category) {
+    global $DB;
+    $record = new stdClass();
+    $record->category = $category;
+    $currentDate = new DateTime();
+    $record->timecreated = $currentDate->getTimestamp();
+    $record->timemodified = $currentDate->getTimestamp();
+    $idcategory = $DB->insert_record('reading_categories', $record, true);
+    if($idcategory > 0) {
+        echo json_encode(array('status' => 'success', 'message' => 'Category successfully added', 'idcategory' => $idcategory, 'category' => $category));
+    } else {
+        echo json_encode(array('status' => 'danger', 'message' => 'It was not possible to create a new category'));
+    }
+}

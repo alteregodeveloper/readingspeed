@@ -18,7 +18,9 @@ $modulecontext = context_module::instance($cm->id);
 $useredit = get_user_can_edit(get_user_roles($modulecontext, $USER->id));
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+    if($_POST['action'] == 'addcategory') {
+        echo set_category($_POST['category']);
+    }
 } else {
     $PAGE->set_url('/mod/readingspeed/view.php', array('id' => $cm->id));
     $PAGE->set_title(format_string($readingspeed->name));
