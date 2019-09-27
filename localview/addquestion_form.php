@@ -56,7 +56,7 @@
 </div>
 <div class="row">
     <div class="col border-top pt-3 text-right">
-        <a href="<?= '//' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . '?id=' . $observationtestid ?>"
+        <a href="<?= '//' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . '?id=' . $activity ?>"
             class="btn btn-secondary">Exit</a> <a href="" class="btn btn-primary addquestion">Add new question</a>
     </div>
 </div>
