@@ -33,10 +33,6 @@ class mod_readingspeed_mod_form extends moodleform_mod {
         $mform->addElement('select', 'complexity', get_string('complexity', 'readingspeed'), $complexityranges);
         $mform->setDefault('complexity', 1);
 
-        $mform->addElement('text', 'words', get_string('readingspeedwords', 'readingspeed'), array('size'=>'10'));
-        $mform->setType('words', PARAM_TEXT);
-        $mform->addRule('words', null, 'required', null, 'client');
-        
         $this->standard_intro_elements();
         $element = $mform->getElement('introeditor');
         $attributes = $element->getAttributes();
@@ -44,7 +40,7 @@ class mod_readingspeed_mod_form extends moodleform_mod {
         $element->setAttributes($attributes);   
  
         $this->standard_coursemodule_elements();
- 
+        
         $this->add_action_buttons();
     }
 }
