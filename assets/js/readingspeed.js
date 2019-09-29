@@ -44,6 +44,10 @@ $(function () {
         add_answer()
         post_question()
     }
+
+    if ($('#start-test').length > 0) {
+        run_test()
+    }
 })
 
 function add_answer() {
@@ -133,6 +137,72 @@ function post_question() {
                     $('#question .alert').addClass('hide')
                     $('#question .alert').removeClass('alert-' + questionStatus)
                 }, 2000)
+            })
+    })
+}
+
+function run_test() {
+    $('#start-test').on('click', function (ev) {
+        ev.preventDefault()
+        $(this).closest('#start-case').addClass('hide')
+        $('#case-content').removeClass('hide')
+        var timestart = new Date().getTime()
+        $('#conclude-reading').on('click', function(ev) {
+            ev.preventDefault()
+            var timeconclude = new Date().getTime()
+            $('input[name="speed"]').val(Math.floor((timeconclude - timestart) / 1000))
+            $('#case-content').addClass('hide')
+            $('#case-questions').removeClass('hide')
+            set_radio()
+            check_test()
+        })
+    })
+}
+
+function set_radio() {
+    $('.answer').unbind().on('click', function (ev) {
+        ev.preventDefault()
+        $(this).closest('.question').find('input.quiz-value').val($(this).data('correct'))
+        $(this).closest('.question').find('i.fa-check-square').addClass('fa-square')
+        $(this).closest('.question').find('i.fa-check-square').removeClass('fa-check-square')
+        $(this).find('i').removeClass('fa-square')
+        $(this).find('i').addClass('fa-check-square')
+    })
+}
+
+function check_test() {
+    $('#case-questions form').on('submit', function (ev) {
+        ev.preventDefault()
+        var quizResult = 0
+        $('input.quiz-value').each(function(i) {
+            quizResult += parseInt($(this).val())
+        })
+        $('input[name="result"]').val((quizResult * 10) / ($('input.quiz-value').length))
+        $.ajax({
+                method: 'POST',
+                url: window.location.href,
+                dataType: 'JSON',
+                data: $('#case-questions form').serialize()
+            })
+            .done(function (data) {
+                if (data.status === 'success') {
+                    var alertColor = '';
+                    if(parseInt(data.result) < 6) {
+                        alertColor = 'alert-danger';
+                    } else if(parseInt(data.result) >= 6 && parseInt(data.result) < 8) {
+                        alertColor = 'alert-warning';
+                    } else if(parseInt(data.result) > 8) {
+                        alertColor = 'alert-success';
+                    }
+                    $('#case-questions').find('.alert').addClass(alertColor);
+                    $('#case-questions').find('.alert').html('Your result is ' + quizResult + ' of ' + $('input.quiz-value').length)
+                    $('#case-questions').find('.alert').removeClass('hide')
+                    $('#case-questions button').remove()
+                } else {
+                    $('#case-questions').find('.alert').addClass(data.status);
+                    $('#case-questions').find('.alert').html(data.message);
+                }
+                $('html, body').animate( {scrollTop : 0}, 800 );
             })
     })
 }

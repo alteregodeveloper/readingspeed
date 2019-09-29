@@ -47,6 +47,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $PAGE->requires->js(new moodle_url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'));
         $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/mod/readingspeed/assets/js/readingspeed.js'));
         echo $OUTPUT->footer();
+    }  else if($_POST['action'] == 'addresult') {
+        echo set_result($USER->id,$_POST['testid'],$_POST['caseid'],$_POST['speed'],$_POST['result']);
     }
 } else {
     $PAGE->set_url('/mod/readingspeed/view.php', array('id' => $cm->id));
@@ -68,6 +70,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo $OUTPUT->heading($readingspeed->name);
         echo $readingspeed->intro;
     }
+    show_case($readingspeed->id);
     $PAGE->requires->js(new moodle_url('https://code.jquery.com/jquery-3.4.1.min.js'));
     $PAGE->requires->js(new moodle_url('https://kit.fontawesome.com/8368a92b51.js'));
     $PAGE->requires->js(new moodle_url('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'));
