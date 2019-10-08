@@ -62,7 +62,7 @@ class backup_readingspeed_activity_structure_step extends backup_activity_struct
 
         // Defines the observation results
         $results = new backup_nested_element('results');
-        $result = new backup_nested_element('result', array('id'), array('userid', 'testid', 'caseid', 'result', 'timecreated', 'timemodified'));
+        $result = new backup_nested_element('result', array('id'), array('userid', 'testid', 'caseid', 'speed', 'readingtime', 'words', 'complexity', 'result', 'timecreated', 'timemodified'));
 
         $readingspeed->add_child($results);
         

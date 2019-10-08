@@ -100,34 +100,36 @@ function post_question() {
                             correctValue = 1
                             correct.prop('checked', false);
                         }
-                        $.ajax({
-                                method: 'POST',
-                                url: window.location.href,
-                                dataType: 'JSON',
-                                data: {
-                                    questionid: data.questionid,
-                                    correct: correctValue,
-                                    intro: introValue,
-                                    action: 'addanswer'
-                                }
-                            })
-                            .done(function (data) {
-                                if (data.status === 'success') {
-                                    var anwserText = ''
-                                    if (correctValue) {
-                                        anwserText = '<div class="row m-1 p-2 bg-success rounded text-white">' + introValue + '</div>'
-                                    } else {
-                                        anwserText = '<div class="row m-1 p-2 border-bottom">' + introValue + '</div>'
+                        if (introValue !== '') {
+                            $.ajax({
+                                    method: 'POST',
+                                    url: window.location.href,
+                                    dataType: 'JSON',
+                                    data: {
+                                        questionid: data.questionid,
+                                        correct: correctValue,
+                                        intro: introValue,
+                                        action: 'addanswer'
                                     }
-                                    $('.row.align-items-center.p-1.bg-light.mb-3.rounded').last().find('.anserws').append(anwserText)
-                                    answersNumber++
-                                } else {
-                                    $('#question .alert').html('An error occurred while saving the answers. It was only possible to store the first ' + answersNumber)
-                                    $('#question .alert').removeClass('alert-' + questionStatus)
-                                    $('#question .alert.hide').addClass('alert-' + data.status)
-                                    return false
-                                }
-                            })
+                                })
+                                .done(function (data) {
+                                    if (data.status === 'success') {
+                                        var anwserText = ''
+                                        if (correctValue) {
+                                            anwserText = '<div class="row m-1 p-2 bg-success rounded text-white">' + introValue + '</div>'
+                                        } else {
+                                            anwserText = '<div class="row m-1 p-2 border-bottom">' + introValue + '</div>'
+                                        }
+                                        $('.row.align-items-center.p-1.bg-light.mb-3.rounded').last().find('.anserws').append(anwserText)
+                                        answersNumber++
+                                    } else {
+                                        $('#question .alert').html('An error occurred while saving the answers. It was only possible to store the first ' + answersNumber)
+                                        $('#question .alert').removeClass('alert-' + questionStatus)
+                                        $('#question .alert.hide').addClass('alert-' + data.status)
+                                        return false
+                                    }
+                                })
+                        }
                     })
                     $('.remove-answer').remove()
                     $('.addanswer').show()
@@ -147,14 +149,17 @@ function run_test() {
         $(this).closest('#start-case').addClass('hide')
         $('#case-content').removeClass('hide')
         var timestart = new Date().getTime()
-        $('#conclude-reading').on('click', function(ev) {
+        $('#conclude-reading').on('click', function (ev) {
             ev.preventDefault()
             var timeconclude = new Date().getTime()
-            $('input[name="speed"]').val(Math.floor((timeconclude - timestart) / 1000))
+            $('input[name="readingtime"]').val(Math.floor((timeconclude - timestart) / 1000))
             $('#case-content').addClass('hide')
             $('#case-questions').removeClass('hide')
             set_radio()
             check_test()
+            $('html, body').animate({
+                scrollTop: 0
+            }, 800)
         })
     })
 }
@@ -174,7 +179,7 @@ function check_test() {
     $('#case-questions form').on('submit', function (ev) {
         ev.preventDefault()
         var quizResult = 0
-        $('input.quiz-value').each(function(i) {
+        $('input.quiz-value').each(function (i) {
             quizResult += parseInt($(this).val())
         })
         $('input[name="result"]').val((quizResult * 10) / ($('input.quiz-value').length))
@@ -185,24 +190,34 @@ function check_test() {
                 data: $('#case-questions form').serialize()
             })
             .done(function (data) {
+                $('#case-questions').addClass('hide');
+                $('#case-result').removeClass('hide');
                 if (data.status === 'success') {
                     var alertColor = '';
-                    if(parseInt(data.result) < 6) {
+                    if (parseInt(data.result) < 6) {
                         alertColor = 'alert-danger';
-                    } else if(parseInt(data.result) >= 6 && parseInt(data.result) < 8) {
+                    } else if (parseInt(data.result) >= 6 && parseInt(data.result) < 8) {
                         alertColor = 'alert-warning';
-                    } else if(parseInt(data.result) > 8) {
+                    } else if (parseInt(data.result) > 8) {
                         alertColor = 'alert-success';
                     }
-                    $('#case-questions').find('.alert').addClass(alertColor);
-                    $('#case-questions').find('.alert').html('Your result is ' + quizResult + ' of ' + $('input.quiz-value').length)
-                    $('#case-questions').find('.alert').removeClass('hide')
-                    $('#case-questions button').remove()
+                    $('#case-result').find('.alert').addClass(alertColor);
+                    $('#case-result').find('.alert').html('Your result is ' + quizResult + ' of ' + $('input.quiz-value').length)
+                    $('#speed').text(data.speed)
+                    $('#readingtime').text(data.readingtime)
                 } else {
-                    $('#case-questions').find('.alert').addClass(data.status);
-                    $('#case-questions').find('.alert').html(data.message);
+                    $('#case-result').find('.alert').addClass(data.status);
+                    $('#case-result').find('.alert').html(data.message);
                 }
-                $('html, body').animate( {scrollTop : 0}, 800 );
+                $('#case-result').find('.alert').removeClass('hide')
+                $('table tbody td').each(function(index) {
+                    if($(this).text() <=data.speed) {
+                        $(this).addClass('bg-info');
+                    }
+                })
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 800);
             })
     })
 }

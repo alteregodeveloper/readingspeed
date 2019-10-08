@@ -48,7 +48,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/mod/readingspeed/assets/js/readingspeed.js'));
         echo $OUTPUT->footer();
     }  else if($_POST['action'] == 'addresult') {
-        echo set_result($USER->id,$_POST['testid'],$_POST['caseid'],$_POST['speed'],$_POST['result']);
+        $speed = ($_POST['words'] * 60) / $_POST['readingtime'];
+        echo set_result($USER->id,$_POST['testid'],$_POST['caseid'],$speed,$_POST['readingtime'],$_POST['words'],$_POST['complexity'],$_POST['result']);
     }
 } else {
     $PAGE->set_url('/mod/readingspeed/view.php', array('id' => $cm->id));

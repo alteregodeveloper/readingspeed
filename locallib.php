@@ -48,7 +48,7 @@ function show_addcasesbutton() {
 function show_case($readingspeedid) {
     global $DB;
 
-    $query = 'SELECT mdl_reading_cases.id, mdl_reading_cases.intro FROM mdl_reading_cases INNER JOIN mdl_readingspeed ON mdl_reading_cases.category = mdl_readingspeed.category AND mdl_reading_cases.complexity = mdl_readingspeed.complexity WHERE mdl_readingspeed.id = ' . $readingspeedid . ' ORDER BY RAND() LIMIT 1';
+    $query = 'SELECT mdl_reading_cases.id, mdl_reading_cases.intro, mdl_reading_cases.complexity, mdl_reading_cases.words FROM mdl_reading_cases INNER JOIN mdl_readingspeed ON mdl_reading_cases.category = mdl_readingspeed.category AND mdl_reading_cases.complexity = mdl_readingspeed.complexity WHERE mdl_readingspeed.id = ' . $readingspeedid . ' ORDER BY RAND() LIMIT 1';
     $case = $DB->get_record_sql($query);
 
     $qnas = '';
@@ -153,20 +153,24 @@ function set_answer($questionid,$correct,$intro) {
     }
 }
 
-function set_result($userid,$testid,$caseid,$speed,$result) {
+function set_result($userid,$testid,$caseid,$speed,$readingtime,$words,$complexity,$result) {
     global $DB;
+    $speed = (int) $speed;
     $record = new stdClass();
     $record->userid = $userid;
     $record->testid = $testid;
     $record->caseid = $caseid;
     $record->speed = $speed;
+    $record->readingtime = $readingtime;
+    $record->words = $words;
+    $record->complexity = $complexity;
     $record->result = $result;
     $currentDate = new DateTime();
     $record->timecreated = $currentDate->getTimestamp();
     $record->timemodified = $currentDate->getTimestamp();
     $answerid = $DB->insert_record('reading_result', $record, true);
     if($answerid > 0) {
-        echo json_encode(array('status' => 'success', 'result' => $result));
+        echo json_encode(array('status' => 'success', 'speed' => $speed, 'readingtime' => $readingtime, 'words' => $words, 'result' => $result));
     } else {
         echo json_encode(array('status' => 'warning', 'message' => 'It was not possible to save the result'));
     }

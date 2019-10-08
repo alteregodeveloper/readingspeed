@@ -27,4 +27,4 @@ $plugin->requires = 2014111000;
 $plugin->cron = 0;
 $plugin->component = 'mod_readingspeed';
 $plugin->maturity = MATURITY_RC;
-$plugin->release = 'v0.1';
+$plugin->release = 'v0.2';
