@@ -22,9 +22,9 @@
  
 defined('MOODLE_INTERNAL') || die();
  
-$plugin->version = 20190901;
+$plugin->version = 2019103000;
 $plugin->requires = 2014111000;
 $plugin->cron = 0;
 $plugin->component = 'mod_readingspeed';
-$plugin->maturity = MATURITY_RC;
-$plugin->release = 'v0.2';
+$plugin->maturity = MATURITY_STABLE;
+$plugin->release = 'v1.0';
