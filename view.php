@@ -31,7 +31,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $PAGE->set_heading(format_string($course->fullname));
         $PAGE->set_context($modulecontext);
         echo $OUTPUT->header();
-        echo $OUTPUT->heading('Add new case');
+        echo $OUTPUT->heading(get_string('addnewcase', 'readingspeed'));
         
         $case = set_case($_POST['category'],$_POST['complexity'],$_POST['intro']);
         show_alert($case['status'],$case['message']);
@@ -60,7 +60,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo $OUTPUT->header();
     if($useredit) {
         if(isset($_GET['action'])) {
-            echo $OUTPUT->heading('Add new case');
+            echo $OUTPUT->heading(get_string('addnewcase', 'readingspeed'));
             show_addcase_form($cm->id);
         }  else {
             echo $OUTPUT->heading($readingspeed->name);

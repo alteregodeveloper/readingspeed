@@ -42,7 +42,7 @@ function get_user_can_edit($roles) {
 
 function show_addcasesbutton() {
     $current_url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    echo '<div class="newcasses" style="text-align: right"><a class="printicon" title="Add new case" href="' . $current_url . '&action=addcase"><i class="far fa-plus-square"></i> Add new case</a></div>';
+    echo '<div class="newcasses" style="text-align: right"><a class="printicon" title="' . get_string('addnewcase', 'readingspeed') . '" href="' . $current_url . '&action=addcase"><i class="far fa-plus-square"></i> ' . get_string('addnewcase', 'readingspeed') . '</a></div>';
 }
 
 function show_case($readingspeedid) {
@@ -91,9 +91,9 @@ function set_case($category,$complexity,$introtext) {
     $record->timemodified = $currentDate->getTimestamp();
     $caseid = $DB->insert_record('reading_cases', $record, true);
     if($caseid > 0) {
-        return array('status' => 'success', 'message' => 'The file was saved successfully. Now you can create the questions', 'caseid' => $caseid, 'words' => $words, 'resume' => substr($introtext,0,100));
+        return array('status' => 'success', 'message' => get_string('filewassaved', 'readingspeed'), 'caseid' => $caseid, 'words' => $words, 'resume' => substr($introtext,0,100));
     } else {
-        return array('status' => 'danger', 'message' => 'An error occurred while trying to save the image. Try again');
+        return array('status' => 'danger', 'message' => get_string('fileerror', 'readingspeed'));
     }
 }
 
@@ -106,9 +106,9 @@ function set_category($category) {
     $record->timemodified = $currentDate->getTimestamp();
     $idcategory = $DB->insert_record('reading_categories', $record, true);
     if($idcategory > 0) {
-        echo json_encode(array('status' => 'success', 'message' => 'Category successfully added', 'idcategory' => $idcategory, 'category' => $category));
+        echo json_encode(array('status' => 'success', 'message' => get_string('categoryadded', 'readingspeed'), 'idcategory' => $idcategory, 'category' => $category));
     } else {
-        echo json_encode(array('status' => 'danger', 'message' => 'It was not possible to create a new category'));
+        echo json_encode(array('status' => 'danger', 'message' => get_string('categoryerror', 'readingspeed')));
     }
 }
 
@@ -117,7 +117,7 @@ function show_addquestion_form($activity,$caseid,$category,$complexity,$words,$r
 }
 
 function show_alert($status, $message) {
-    echo '<div class="alert alert-' . $status . ' alert-dismissible fade show" role="alert"><i class="fas fa-bell"></i> ' . $message . '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+    echo '<div class="alert alert-' . $status . ' alert-dismissible fade show" role="alert"><i class="fas fa-bell"></i> ' . $message . '<button type="button" class="close" data-dismiss="alert" aria-label="' . get_string('close', 'readingspeed') . '"><span aria-hidden="true">&times;</span></button></div>';
 }
 
 function set_question($caseid,$question) {
@@ -130,9 +130,9 @@ function set_question($caseid,$question) {
     $record->timemodified = $currentDate->getTimestamp();
     $questionid = $DB->insert_record('reading_questions', $record, true);
     if($questionid > 0) {
-        echo json_encode(array('status' => 'success', 'message' => 'Question successfully added', 'questionid' => $questionid, 'question' => $question));
+        echo json_encode(array('status' => 'success', 'message' => get_string('questionadded', 'readingspeed'), 'questionid' => $questionid, 'question' => $question));
     } else {
-        echo json_encode(array('status' => 'danger', 'message' => 'It was not possible to create a new question'));
+        echo json_encode(array('status' => 'danger', 'message' => get_string('questionerror', 'readingspeed')));
     }
 }
 
@@ -149,7 +149,7 @@ function set_answer($questionid,$correct,$intro) {
     if($answerid > 0) {
         echo json_encode(array('status' => 'success', 'correct' => $correct, 'answer' => $intro));
     } else {
-        echo json_encode(array('status' => 'warning'));
+        echo json_encode(array('status' => 'warning', 'message' => get_string('errorsavinganswer', 'readingspeed')));
     }
 }
 
@@ -172,6 +172,6 @@ function set_result($userid,$testid,$caseid,$speed,$readingtime,$words,$complexi
     if($answerid > 0) {
         echo json_encode(array('status' => 'success', 'speed' => $speed, 'readingtime' => $readingtime, 'words' => $words, 'result' => $result));
     } else {
-        echo json_encode(array('status' => 'warning', 'message' => 'It was not possible to save the result'));
+        echo json_encode(array('status' => 'warning', 'message' => get_string('resulterror', 'readingspeed')));
     }
 }
