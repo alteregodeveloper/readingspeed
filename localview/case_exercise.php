@@ -4,7 +4,7 @@
             <div class="col text-center mt-5 mb-5">
                 <a href="" class="btn btn-success btn-lg mt-5 mb-5" id="start-test"><i
                         class="fas fa-tachometer-alt"></i>
-                        <? get_string('starttest', 'readingspeed') ?></a>
+                        <?= get_string('starttest', 'readingspeed') ?></a>
             </div>
         </div>
         <div class="row justify-content-center hide" id="case-content">
@@ -16,7 +16,7 @@
                 </div>
                 <div class="row">
                     <div class="col text-right border-top mt-3 pt-3">
-                        <a href="" class="btn btn-primary" id="conclude-reading"><i class="fas fa-check"></i> <? get_string('concludereading', 'readingspeed') ?></a>
+                        <a href="" class="btn btn-primary" id="conclude-reading"><i class="fas fa-check"></i> <?= get_string('concludereading', 'readingspeed') ?></a>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                     <input type="hidden" name="action" value="addresult">
                     <?php echo $qnas; ?>
                     <div class="col text-right">
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-check-double"></i> <? get_string('check', 'readingspeed') ?></button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-check-double"></i> <?= get_string('check', 'readingspeed') ?></button>
                     </div>
                 </form>
             </div>
@@ -41,21 +41,21 @@
         <div class="row justify-content-center hide" id="case-result">
             <div class="col">
                 <div class="alert" role="alert"></div>
-                <p><? get_string('wordspermin', 'readingspeed') ?> <strong id="speed"></strong><br /><? get_string('time', 'readingspeed') ?> <strong id="readingtime"></strong>
-                <? get_string('seconds', 'readingspeed') ?></p>
-                <p class="mt-3"><? get_string('followingtable', 'readingspeed') ?> <span class="bg-info p-1 rounded"><? get_string('color', 'readingspeed') ?></span> <? get_string('readinglevel', 'readingspeed') ?>.</p>
+                <p><?= get_string('wordspermin', 'readingspeed') ?> <strong id="speed"></strong><br /><?= get_string('time', 'readingspeed') ?> <strong id="readingtime"></strong>
+                <?= get_string('seconds', 'readingspeed') ?></p>
+                <p class="mt-3"><?= get_string('followingtable', 'readingspeed') ?> <span class="bg-info p-1 rounded"><?= get_string('color', 'readingspeed') ?></span> <?= get_string('readinglevel', 'readingspeed') ?>.</p>
                 <div class="table-responsive">
                     <table class="table table-bordered text-center">
                         <thead class="thead-light">
                             <tr>
                                 <th>&nbsp;</th>
-                                <th colspan="6"><? get_string('primary', 'readingspeed') ?></th>
-                                <th colspan="3"><? get_string('middleschool', 'readingspeed') ?></th>
-                                <th colspan="3"><? get_string('highschool', 'readingspeed') ?></th>
-                                <th><? get_string('university', 'readingspeed') ?></th>
+                                <th colspan="6"><?= get_string('primary', 'readingspeed') ?></th>
+                                <th colspan="3"><?= get_string('middleschool', 'readingspeed') ?></th>
+                                <th colspan="3"><?= get_string('highschool', 'readingspeed') ?></th>
+                                <th><?= get_string('university', 'readingspeed') ?></th>
                             </tr>
                             <tr>
-                                <th><? get_string('schoolgrade', 'readingspeed') ?></th>
+                                <th><?= get_string('schoolgrade', 'readingspeed') ?></th>
                                 <th>1</th>
                                 <th>2</th>
                                 <th>3</th>
@@ -73,7 +73,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><? get_string('usual', 'readingspeed') ?></td>
+                                <td><?= get_string('usual', 'readingspeed') ?></td>
                                 <td>80</td>
                                 <td>115</td>
                                 <td>138</td>
@@ -89,7 +89,7 @@
                                 <td>280</td>
                             </tr>
                             <tr>
-                                <td><? get_string('suitable', 'readingspeed') ?></td>
+                                <td><?= get_string('suitable', 'readingspeed') ?></td>
                                 <td>125</td>
                                 <td>150</td>
                                 <td>180</td>
