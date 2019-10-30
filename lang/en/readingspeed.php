@@ -7,9 +7,11 @@
  */
 
 $string['pluginname'] = 'Reading Speed Test';
+$string['modulenameplural'] = 'Reading Speed Tests';
 $string['modulename'] = 'Reading Speed Test';
 $string['readingspeed'] = 'Reading Speed Test';
 $string['mod_readingspeed'] = 'Reading Speed Test';
+$string['pluginadministration'] = 'Administration';
 $string['readingspeedname'] = 'Name';
 $string['readingspeedwords'] = 'Words';
 $string['modulename_help'] = 'This module allows to exercise the student\'s reading speed and quantify it in three possible levels:

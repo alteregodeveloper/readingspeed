@@ -11,6 +11,7 @@ $string['modulename'] = 'Test de velocidad lectora';
 $string['readingspeed'] = 'Test de velocidad lectora';
 $string['mod_readingspeed'] = 'Test de velocidad lectora';
 $string['readingspeedname'] = 'Nombre';
+$string['pluginadministration'] = 'Administración';
 $string['modulename_help'] = 'Éste módulo permite ejercitar la velocidad lectora del estudiante y cuantificarlo en tres posibles niveles:
 * fácil
 * intermedio
