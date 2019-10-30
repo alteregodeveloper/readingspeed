@@ -123,7 +123,7 @@ function post_question() {
                                         $('.row.align-items-center.p-1.bg-light.mb-3.rounded').last().find('.anserws').append(anwserText)
                                         answersNumber++
                                     } else {
-                                        $('#question .alert').html('An error occurred while saving the answers. It was only possible to store the first ' + answersNumber)
+                                        $('#question .alert').html(data.message + answersNumber)
                                         $('#question .alert').removeClass('alert-' + questionStatus)
                                         $('#question .alert.hide').addClass('alert-' + data.status)
                                         return false
