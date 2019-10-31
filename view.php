@@ -58,6 +58,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $PAGE->set_url('/mod/readingspeed/view.php', array('id' => $cm->id));
     $PAGE->set_title(format_string($readingspeed->name));
     $PAGE->requires->css(new moodle_url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'));
+    $PAGE->requires->css(new moodle_url($CFG->wwwroot . '/mod/readingspeed/assets/css/readingspeed.css'));
     $PAGE->set_heading(format_string($course->fullname));
     $PAGE->set_context($modulecontext);
     echo $OUTPUT->header();

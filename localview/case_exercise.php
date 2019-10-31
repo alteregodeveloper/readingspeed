@@ -11,7 +11,7 @@
             <div class="col-10">
                 <div class="row">
                     <div class="col rounded bg-light p-3">
-                        <?= $case->intro ?>
+                        <pre><?= $case->intro ?></pre>
                     </div>
                 </div>
                 <div class="row">

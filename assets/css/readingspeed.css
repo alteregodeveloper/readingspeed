@@ -1,0 +1,5 @@
+.col.rounded.bg-light.p-3 pre {
+    width: 100%;
+    white-space: pre-wrap;
+    overflow-x: auto;
+}
